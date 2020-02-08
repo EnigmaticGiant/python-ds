@@ -1,3 +1,6 @@
+# The code is almost same to BFS, the only difference being queue
+# is replaced by stack
+
 from collections import defaultdict
 
 class Graph:
@@ -10,21 +13,21 @@ class Graph:
         self.graph[u].append(v)
 
 
-    def bfs(self, s):
+    def dfs(self, s):
         visited = [False] * len(self.graph)
 
-        queue = []
+        stack = []
 
-        queue.append(s)
+        stack.append(s)
         visited[s] = True
 
-        while queue:
-            s = queue.pop(0)
+        while stack:
+            s = stack.pop()
             print(s, end=' ')
 
             for i in self.graph[s]:
                 if visited[i] == False:
-                    queue.append(i)
+                    stack.append(i)
                     visited[i] = True
 
 
@@ -36,4 +39,4 @@ g.add_edge(2, 0)
 g.add_edge(2, 3) 
 g.add_edge(3, 3) 
 
-g.bfs(0)
+g.dfs(0)

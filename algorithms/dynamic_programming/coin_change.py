@@ -1,26 +1,16 @@
-# Dynamic Programming Python implementation of Coin
-# Change problem
-def count(S, m, n):
-	# We need n+1 rows as the table is constructed
-	# in bottom up manner using the base case 0 value
-	# case (n = 0)
-	table = [[0 for x in range(m)] for x in range(n+1)]
+# Concept is almost same as 01 Knapsack Problem
 
-	# Fill the entries for 0 value case (n = 0)
-	for i in range(m):
-		table[0][i] = 1
+def min_coin(coins, total):
+    cols = total + 1
+    rows = len(coins)
 
-	# Fill rest of the table entries in bottom up manner
-	for i in range(1, n+1):
-		for j in range(m):
+    t = [ [0] if col == 0 else float('inf') for col in range(cols)] for i in range(rows)]
 
-			# Count of solutions including S[j]
-			x = table[i - S[j]][j] if i-S[j] >= 0 else 0
+    for i in range(rows):
+        for j in range(1, cols):
+            if j < coins[i]:
+                t[i][j] = t[i-1][j]
+            else:
+                t[i][j] = min(t[i-1][j], 1 + t[i][j-coins[i])
 
-			# Count of solutions excluding S[j]
-			y = table[i][j-1] if j >= 1 else 0
-
-			# total count
-			table[i][j] = x + y
-
-	return table[n][m-1]
+    return t[rows-1][cols-1]
